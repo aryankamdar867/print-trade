@@ -1,0 +1,208 @@
+/* PRINT TRADE — IBM PLEX SANS & INTER DESIGN SYSTEM */
+
+:root {
+  --vellum-bg: #FAF8F3;
+  --ink-black: #0F1012;
+  --ink-charcoal: #2B2927;
+  --vellum-border: #E9E2D4;
+}
+
+/* Base Body Styling with Inter */
+body {
+  background-color: var(--vellum-bg);
+  color: var(--ink-black);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom 2XS Shadow */
+.shadow-2xs {
+  box-shadow: 0 1px 2px 0 rgba(15, 16, 18, 0.04);
+}
+
+/* ======================================================== */
+/* LUXURY 3D INTERACTIVE VISITING CARD                     */
+/* ======================================================== */
+#card-3d-stage {
+  perspective: 1200px;
+  perspective-origin: center;
+}
+
+#card-3d {
+  width: 100%;
+  max-width: 500px;
+  height: 255px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+
+#card-3d.flipping {
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 14px;
+  box-shadow: 
+    0 25px 50px -15px rgba(15, 16, 18, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card-face-front {
+  transform: rotateY(0deg) translateZ(1px);
+  background-color: #0C0C0E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-face-back {
+  transform: rotateY(180deg) translateZ(1px);
+  background: radial-gradient(circle at 75% 20%, #2A2826 0%, #171615 60%, #0F0E0D 100%);
+}
+
+/* Holographic Foil Glare Overlay */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.1) 35%, transparent 70%);
+  opacity: var(--glare-opacity, 0);
+  mix-blend-mode: color-dodge;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Gold Metallic Trim */
+.card-face-back::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  pointer-events: none;
+}
+
+/* ======================================================== */
+/* 3D PANTONE SWATCH FAN DECK STYLING                      */
+/* ======================================================== */
+#fan-deck-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.swatch-blade {
+  position: absolute;
+  bottom: 20px;
+  width: 82px;
+  height: 270px;
+  border-radius: 8px 8px 18px 18px;
+  transform-origin: bottom center;
+  transform: rotateZ(calc(var(--rotation, 0deg) * var(--fan-spread, 1))) translateY(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, z-index 0.1s ease;
+  box-shadow: -2px 10px 25px rgba(15, 16, 18, 0.15), 0 2px 5px rgba(15, 16, 18, 0.08);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 10px;
+}
+
+.swatch-blade:hover {
+  transform: rotateZ(calc(var(--rotation, 0deg) * var(--fan-spread, 1))) translateY(-22px) scale(1.05);
+  box-shadow: -4px 20px 35px rgba(15, 16, 18, 0.28);
+  z-index: 50 !important;
+}
+
+.swatch-blade.active-blade {
+  transform: rotateZ(calc(var(--rotation, 0deg) * var(--fan-spread, 1))) translateY(-16px) scale(1.03);
+  box-shadow: -4px 18px 30px rgba(15, 16, 18, 0.25);
+  z-index: 40;
+}
+
+.swatch-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.blade-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.blade-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+/* Swatch Deck Binding Pin */
+.swatch-pin {
+  position: absolute;
+  bottom: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #D4AF37 35%, #8B6914 100%);
+  border: 2px solid #5A440D;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  z-index: 60;
+  pointer-events: none;
+}
+
+/* Preset Button Active State */
+.preset-btn.active {
+  border-color: #0F1012 !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 0 1.5px #0F1012;
+}
+
+/* Custom Minimalist Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #E9E2D4;
+  border-radius: 9999px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #0F1012;
+  border: 2px solid #FAF8F3;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
